@@ -1,0 +1,22 @@
+---
+title: "Incubation Data Compilation"
+author: "Nancy Freitas"
+date: "February 12, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Description
+
+This document will be used to compile data that pertains to the NSF Goldstream and NGEE Arctic projects. Lake sediment samples were incubated under different oxygen conditions (aerobic and anaerobic), and at different temperatures (4C, 10C, and 20C). Gas samples were collected from jars at various time points, and were run on a gas chromatograph to determine methane (CH~4~) and carbon dioxide (CO~2~) emissions.
+
+Emission data will be organized into data frames, tidied, and scaled into CH~4~ and CO~2~ fluxes per unit time. Data will be visualized by depth and type of gas released from the sediment.
+
+#### Import Packages
+```{r}
+
+```
+
