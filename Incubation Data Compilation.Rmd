@@ -11,12 +11,48 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Description
 
-This document will be used to compile data that pertains to the NSF Goldstream and NGEE Arctic projects. Lake sediment samples were incubated under different oxygen conditions (aerobic and anaerobic), and at different temperatures (4C, 10C, and 20C). Gas samples were collected from jars at various time points, and were run on a gas chromatograph to determine methane (CH~4~) and carbon dioxide (CO~2~) emissions.
+This document will be used to compile data that pertains to the NSF Goldstream and NGEE Arctic projects. Lake sediment samples were incubated under different oxygen conditions (aerobic and anaerobic), and at different temperatures (4C, 10C, and 20C). Gas samples were collected from jars at various time points, and were run on a gas chromatograph (GC) to determine methane (CH~4~) and carbon dioxide (CO~2~) emissions.
 
 Emission data will be organized into data frames, tidied, and scaled into CH~4~ and CO~2~ fluxes per unit time. Data will be visualized by depth and type of gas released from the sediment.
 
-#### Import Packages
-```{r}
 
+#### Motivation
+
+#### Description of Analyses
+
+#### Required Data
+
+1. Concentrations of CO~2~ and CH~4~ by time point (GC raw data) 
+2. Sediment bulk density, percent carbon, percent nitrogen by sample depth (compiled by Josefine Lenz)  
+
+#### Data Analysis 
+
+Load Packages
+```{r, message=FALSE}
+# set of packages for everyday data analyses - ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
+library(tidyverse)
+
+# provides summary statistics about variables, main focus is on data frames
+library(skimr)
 ```
+
+Import data
+
+1. Import GC data that has been compiled into four .csv files:
+  * Anaerobic CO2 by time point
+  * Anaerobic CH4 by time point
+  * Aerobic CO2 by time ppoint
+  * Aerobic CH4 by time point
+
+```{r}
+ana_co2 <- read_csv("ANA CO2 Compiled.csv")
+ana_ch4 <- read_csv("ANA CH4 Compiled.csv")
+aer_co2 <- read_csv("AER CO2 Compiled.csv")
+aer_ch4 <- read_csv("AER CH4 Compiled.csv")
+```
+
+2. Import Josi's data that is compiled into one .csv file:
+  * Bulk density
+  * Percent carbon
+  * Percent nitrogen
 

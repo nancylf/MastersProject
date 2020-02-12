@@ -195,9 +195,15 @@ $(document).ready(function () {
 <div id="description" class="section level2">
 <h2>Description</h2>
 <p>This document will be used to compile data that pertains to the NSF Goldstream and NGEE Arctic projects. Lake sediment samples were incubated under different oxygen conditions (aerobic and anaerobic), and at different temperatures (4C, 10C, and 20C). Gas samples were collected from jars at various time points, and were run on a gas chromatograph to determine methane (CH<sub>4</sub>) and carbon dioxide (CO<sub>2</sub>) emissions.</p>
-<p>Emission data will be organized into tables, tidied, and scaled into CH<sub>4</sub> and CO<sub>2</sub> fluxes per unit time. Data will be visualized by depth and type of gas released from the sediment.</p>
-<div id="import-packages" class="section level4">
-<h4>Import Packages</h4>
+<p>Emission data will be organized into data frames, tidied, and scaled into CH<sub>4</sub> and CO<sub>2</sub> fluxes per unit time. Data will be visualized by depth and type of gas released from the sediment.</p>
+<div id="data-analysis" class="section level4">
+<h4>Data Analysis</h4>
+<p>Load Packages</p>
+<pre class="r"><code># set of packages for everyday data analyses - ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
+library(tidyverse)
+
+# provides summary statistics about variables, main focus is on data frames
+library(skimr)</code></pre>
 </div>
 </div>
 
