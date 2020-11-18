@@ -1371,6 +1371,51 @@ plt_avg_ana_co2_corr <- summ_vals %>%
                                                     "19.83-19.98"))
 print(plt_avg_ana_co2_corr)
 
+# plot 3 months of AVG. ANAEROBIC C-CO2 data using replicate values, with shallowest vs. deepest depths highlighted
+# shallowest depth is at 0.31-0.47m and deepest depth is at 19.83-19.98m
+# not normalized by gC, corrected for dips on days 40, 47, 54
+# FYI - legends here are not updated
+
+# shallow
+color_lines_shal_31cm <- summ_vals %>%
+  filter(gas_sampled == "CO2" & headspace_treatment == "anaerobic" & 
+           samp_int_day < 103 & samp_int_day != 40 & samp_int_day != 47 & samp_int_day != 54 & sample_depth_lower_cm == 31)
+
+# deep
+color_lines_deep_1983cm <- summ_vals %>%
+  filter(gas_sampled == "CO2" & headspace_treatment == "anaerobic" & 
+           samp_int_day < 103 & samp_int_day != 40 & samp_int_day != 47 & samp_int_day != 54 & sample_depth_lower_cm == 1983)
+
+# plot
+plt_avg_ana_co2_corr_shal_deep <- summ_vals %>%
+  filter(gas_sampled == "CO2" & headspace_treatment == "anaerobic" & 
+           samp_int_day < 103 & samp_int_day != 40 & samp_int_day != 47 & samp_int_day != 54) %>% 
+  ggplot(aes(y = avg_accum_gas_ugC, x = samp_int_day, 
+             color = sample_depth_range_m, linetype = factor(temp_treatment_C), 
+             group = interaction(sample_depth_range_m, temp_treatment_C))) + 
+  geom_line(color = "grey") + 
+  geom_point(color = "grey") +
+  geom_errorbar(aes(ymin = avg_accum_gas_ugC - se_accum_gas_ugC, ymax = avg_accum_gas_ugC + se_accum_gas_ugC), width = 0.2, color = "grey") +
+  labs(title = "Cumulative anaerobic C-CO2 respired - replicate averages", 
+       y = "Cumulative anaerobic C-CO2 (ugC-CO2)", x = "Sampling interval (days)", 
+       linetype = "Temperature treatment (C)", color = "Depth (m)") +
+  scale_color_manual(values = col_pal, limits = c("0.31-0.47", 
+                                                    "0.6-0.76", 
+                                                    "1.1-1.17", 
+                                                    "3.05-3.21",
+                                                    "5.24-5.39",
+                                                    "7.21-7.35",
+                                                    "10.05-10.2",
+                                                    "12.62-12.77",
+                                                    "13.65-13.8",
+                                                    "16.63-16.78",
+                                                    "18.52-18.67",
+                                                    "19.83-19.98")) +
+  geom_line(mapping = NULL, data = color_lines_shal_31cm, color = col_pal[1], size = 0.7, show.legend = FALSE) +
+  geom_line(mapping = NULL, data = color_lines_deep_1983cm, color = col_pal[12], size = 0.7, show.legend = FALSE)
+
+print(plt_avg_ana_co2_corr_shal_deep)
+
 # plot 3 months of AVG. ANAEROBIC C-CO2 data using replicate values
 # normalized by gC, corrected for dips on days 40, 47, 54
 plt_avg_ana_co2_gC_corr <- summ_vals %>%
@@ -1810,6 +1855,50 @@ plt_avg_aer_co2_corr <- summ_vals %>%
                                                     "19.83-19.98"))
 print(plt_avg_aer_co2_corr)
 
+
+# plot 3 months of AVG. AEROBIC C-CO2 data using replicate values, with shallowest vs. deepest depths highlighted
+# shallowest depth is at 0.31-0.47m and deepest depth is at 19.83-19.98m
+# not normalized by gC
+# FYI - legends here are not updated
+
+# shallow
+color_lines_shal_31cm <- summ_vals %>%
+  filter(gas_sampled == "CO2" & headspace_treatment == "aerobic" & samp_int_day < 99 & sample_depth_lower_cm == 31)
+
+# deep
+color_lines_deep_1983cm <- summ_vals %>%
+  filter(gas_sampled == "CO2" & headspace_treatment == "aerobic" & samp_int_day < 99 & sample_depth_lower_cm == 1983)
+
+# plot
+plt_avg_aer_co2_corr_shal_deep <- summ_vals %>%
+  filter(gas_sampled == "CO2" & headspace_treatment == "aerobic" & samp_int_day < 99) %>% 
+  ggplot(aes(y = avg_accum_gas_ugC, x = samp_int_day, 
+             color = sample_depth_range_m, linetype = factor(temp_treatment_C), 
+             group = interaction(sample_depth_range_m, temp_treatment_C))) + 
+  geom_line(color = "grey") + 
+  geom_point(color = "grey") +
+  geom_errorbar(aes(ymin = avg_accum_gas_ugC - se_accum_gas_ugC, ymax = avg_accum_gas_ugC + se_accum_gas_ugC), width = 0.2, color = "grey") +
+  labs(title = "Cumulative aerobic C-CO2 respired - replicate averages", 
+       y = "Cumulative aerobic C-CO2 (ugC-CO2)", x = "Sampling interval (days)", 
+       linetype = "Temperature treatment (C)", color = "Depth (m)") +
+  scale_color_manual(values = col_pal, limits = c("0.31-0.47", 
+                                                    "0.6-0.76", 
+                                                    "1.1-1.17", 
+                                                    "3.05-3.21",
+                                                    "5.24-5.39",
+                                                    "7.21-7.35",
+                                                    "10.05-10.2",
+                                                    "12.62-12.77",
+                                                    "13.65-13.8",
+                                                    "16.63-16.78",
+                                                    "18.52-18.67",
+                                                    "19.83-19.98")) +
+  geom_line(mapping = NULL, data = color_lines_shal_31cm, color = col_pal[1], size = 0.7, show.legend = FALSE) +
+  geom_line(mapping = NULL, data = color_lines_deep_1983cm, color = col_pal[12], size = 0.7, show.legend = FALSE)
+
+print(plt_avg_aer_co2_corr_shal_deep)
+
+
 # plot 3 months of AVG. AEROBIC C-CO2 data using replicate values
 # normalized by gC
 plt_avg_aer_co2_gC_corr <- summ_vals %>%
@@ -2052,41 +2141,6 @@ plt_avg_aer_ch4_gC_corr <- summ_vals %>%
                                                     "18.52-18.67",
                                                     "19.83-19.98"))
 print(plt_avg_aer_ch4_gC_corr)
-
-# --- EXAMPLE --- DELETE THIS - make all lines gray, make one line colored.
-# plot 3 months of AVG. AEROBIC C-CH4 data using replicate values
-# normalized by gC
-
-color_lines_shal <- summ_vals %>%
-  filter(gas_sampled == "CH4" & headspace_treatment == "aerobic" & samp_int_day < 99 & sample_depth_range_m == "0.31-0.47")
-
-color_lines_deep <- summ_vals %>%
-  filter(gas_sampled == "CH4" & headspace_treatment == "aerobic" & samp_int_day < 99 & sample_depth_range_m == "18.52-18.67")
-
-plt_avg_aer_ch4_gC_corr1 <- summ_vals %>%
-  filter(gas_sampled == "CH4" & headspace_treatment == "aerobic" & samp_int_day < 99) %>%
-  ggplot(aes(y = avg_accum_gas_ugC_gC, x = samp_int_day,
-             color = sample_depth_range_m, linetype = factor(temp_treatment_C),
-             group = interaction(sample_depth_range_m, temp_treatment_C))) +
-  geom_line(color = "grey") +
-  geom_point(color = "grey") + 
-  geom_line(mapping = NULL, data = color_lines_shal, color = "green") + 
-  geom_line(mapping = NULL, data = color_lines_deep, color = "brown")
-  # scale_color_manual(values = col_pal, limits = c("0.31-0.47", 
-  #                                                   "0.6-0.76", 
-  #                                                   "1.1-1.17", 
-  #                                                   "3.05-3.21",
-  #                                                   "5.24-5.39",
-  #                                                   "7.21-7.35",
-  #                                                   "10.05-10.2",
-  #                                                   "12.62-12.77",
-  #                                                   "13.65-13.8",
-  #                                                   "16.63-16.78",
-  #                                                   "18.52-18.67",
-  #                                                   "19.83-19.98"))
-# plt_avg_aer_ch4_gC_corr + gghighlight(sample_depth_lower >= 1852)
-
-print(plt_avg_aer_ch4_gC_corr1)
 
 
 ```
@@ -2607,6 +2661,9 @@ ggsave(plot = plt_ana_co2_corr, "/Users/nancylf/Documents/UC Berkeley/Research/N
 # Cumulative CO2 replicate averages, not normalized, corrected for dips in data (C-CO2)
 ggsave(plot = plt_avg_ana_co2_corr, "/Users/nancylf/Documents/UC Berkeley/Research/NGEE Arctic/NSF Goldstream Project/Incubations/Data Compilation/R Output_Graphs/Cumulative ANA CO2 avgs_3 months_20201112.png")
 
+# Cumulative CO2 replicate averages, shallow and deep highlighted, not normalized, corrected for dips in data (C-CO2)
+ggsave(plot = plt_avg_ana_co2_corr_shal_deep, "/Users/nancylf/Documents/UC Berkeley/Research/NGEE Arctic/NSF Goldstream Project/Incubations/Data Compilation/R Output_Graphs/Cumulative ANA CO2 avgs_shal_deep_3 months_20201112.png")
+
 # --- ANA CH4 ---
 
 # Cumulative CH4, normalized, corrected for dips in data (C-CH4/gC)
@@ -2634,6 +2691,9 @@ ggsave(plot = plt_aer_co2_corr, "/Users/nancylf/Documents/UC Berkeley/Research/N
 
 # Cumulative CO2 replicate averages, not normalized, corrected for dips in data (C-CO2)
 ggsave(plot = plt_avg_aer_co2_corr, "/Users/nancylf/Documents/UC Berkeley/Research/NGEE Arctic/NSF Goldstream Project/Incubations/Data Compilation/R Output_Graphs/Cumulative AER CO2 avgs_3 months_20201112.png")
+
+# Cumulative CO2 replicate averages, shallow and deep highlighted, not normalized, corrected for dips in data (C-CO2)
+ggsave(plot = plt_avg_aer_co2_corr_shal_deep, "/Users/nancylf/Documents/UC Berkeley/Research/NGEE Arctic/NSF Goldstream Project/Incubations/Data Compilation/R Output_Graphs/Cumulative AER CO2 avgs_shal_deep_3 months_20201112.png")
 
 # --- AER CH4 ---
 
